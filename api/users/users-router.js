@@ -33,13 +33,12 @@ router.put('/:id', logger, idChecker, validateUser, (req, res, next) => {
   .catch(next)
 });
 
-router.delete('/:id', logger, idChecker, (req, res) => {
-  const data = req.user
+router.delete('/:id', logger, idChecker, (req, res, next) => {
   User.remove(req.params.id)
   .then(() =>{
-    res.status(200).json(data)
+    res.status(200).json(req.user)
   })
-  .catch()
+  .catch(next)
 });
 
 router.get('/:id/posts', logger, idChecker, (req, res, next) => {
